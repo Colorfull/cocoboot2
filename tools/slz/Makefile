@@ -18,8 +18,8 @@
 
 
 
+$(SLZ): slz.c
+	$(CC) -o $(SLZ) slz.c
 
-all: slz
-
-bfc: slz.c
-	cc -o slz slz.c
+clean:
+	rm -f *~ $(SLZ)

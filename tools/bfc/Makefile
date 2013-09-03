@@ -1,5 +1,5 @@
-bfc: bfc.c
-	$(CC) -o $(BUILDDIR)/tools/bfc bfc.c
+$(BFC): bfc.c
+	$(CC) -o $(BFC) bfc.c
 
 clean:
-	rm -f *~ bfc
+	rm -f *~ $(BFC)

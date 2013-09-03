@@ -18,8 +18,8 @@
 
 
 
-rofs: rofs.c
-	gcc -o rofs rofs.c
+$(ROFS): rofs.c
+	$(CC) -o $(ROFS) rofs.c
 
 clean: 
-	rm -f *# *~
+	rm -f *# *~ $(ROFS)

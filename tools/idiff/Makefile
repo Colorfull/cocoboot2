@@ -17,7 +17,8 @@
 # ------------------------------------------------------------------------
 
 
-ALL: idiff
+$(IDIFF): idiff.c
+	$(CC) -o $(IDIFF) idiff.c
 
 clean:
-	rm -f idiff
+	rm -f idiff $(IDIFF)

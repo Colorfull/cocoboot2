@@ -17,21 +17,15 @@
 # ------------------------------------------------------------------------
 
 
-#
-# This sets the build directory
-#
-
-BUILDDIR = /home/beretta/C/cocoboot2/build
-
-# Location of lwasm
-
-LWASM = lwasm
-
-
-MKDIR = mkdir -p
+include include/cocoboot2.make
 
 
 all:
 	$(MKDIR) $(BUILDDIR)
 	$(MKDIR) $(BUILDDIR)/tools
+	$(MKDIR) $(BUILDDIR)/images
 	cd tools; $(MAKE)
+
+clean:
+	cd tools; $(MAKE) clean
+	rm -f *~
