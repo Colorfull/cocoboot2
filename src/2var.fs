@@ -26,6 +26,8 @@ in mem:   highword lowword
 
 )
 
+include basics.fs
+
 : 2@ ( a -- d ) \ fetches a double variable
    @+ swap @ swap ; 
 
@@ -34,6 +36,9 @@ in mem:   highword lowword
 
 : 2inc ( d -- d ) \  increment double by one
    swap 1 adc -rot + ;
+
+: 2+ ( d d -- d ) \ add two doubles together
+   rot + -rot adc -rot + ;
    
 
 done 

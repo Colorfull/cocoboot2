@@ -357,11 +357,15 @@ LOG
 * tested device addressing selection with sIDE
 * added license header to all source
 * made rofs work with bastard RSDOS fs.
+* rearranged src directories.  Makefile don't work anymore
 
 
 ***********************************
 where at
 ***********************************
+
+*** revise Makefile to be sane and work!!! (changed directory layout before committing to SVN repo)
+
 
 testing loading a sector
 
