@@ -16,8 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ------------------------------------------------------------------------
 
-HDBDIR = /home/beretta/C/toolshed/hdbdos/
-VPATH = $(HDBDIR)
+VPATH = $(HDBDIR):$(BUILDDIR)/images
 
 ROMS= hdbchs.rom     	\
       hdbdw3bc3.rom  	\
@@ -56,18 +55,20 @@ DIFS= hdbchs.dif     	\
       hdblrtech.dif	
 
 
-ALL: decb.rom $(OVRS) $(DIFS)
+ALL: $(BUILDDIR)/images/decb.rom $(DIFS)
+
 
 # DECB is built into every HDB image.
 # it's duplicated, so well rip the needed pages from one of the 
 # full HDB roms
-decb.rom: $(ROMS) 
-	dd bs=256 count=25 of=decb.rom if=$(HDBDIR)hdbchs.rom
+$(BUILDDIR)/images/decb.rom: $(ROMS) 
+	dd bs=256 count=25 of=$@ if=$(HDBDIR)/hdbchs.rom
 
 # And our homemade binary patch will create the specific 
 # loadable images for each flavor of HDBDOS
 %.dif: %.rom
-	../tools/idiff/idiff $(HDBDIR)hdbchs.rom $< $@
+	$(IDIFF) $(HDBDIR)/hdbchs.rom $< $(BUILDDIR)/images/$@
+
 
 clean:
-	rm -f *.rom *.dif
+	rm -f $(BUILDDIR)/images/*.dif $(BUILDDIR)/images/decb.rom

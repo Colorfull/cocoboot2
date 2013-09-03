@@ -25,7 +25,9 @@ all:
 	$(MKDIR) $(BUILDDIR)/tools
 	$(MKDIR) $(BUILDDIR)/images
 	cd tools; $(MAKE)
+	cd images; $(MAKE)
 
 clean:
 	cd tools; $(MAKE) clean
+	cd images; $(MAKE) clean
 	rm -f *~
