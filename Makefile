@@ -24,10 +24,12 @@ all:
 	$(MKDIR) $(BUILDDIR)
 	$(MKDIR) $(BUILDDIR)/tools
 	$(MKDIR) $(BUILDDIR)/images
+	$(MKDIR) $(BUILDDIR)/listings
 	cd tools; $(MAKE)
 	cd images; $(MAKE)
+	cd src; $(MAKE)
 
 clean:
 	cd tools; $(MAKE) clean
 	cd images; $(MAKE) clean
-	rm -f *~
+	cd src; $(MAKE) clean

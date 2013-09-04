@@ -25,7 +25,7 @@ make
 toolshed source  
 Nitros9 LWASM source
 dd
-
+makewav
 
 
 CoCoBoot2 creates a standard 35 track RSDOS floppy image, suitable for

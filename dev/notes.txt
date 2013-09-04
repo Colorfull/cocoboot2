@@ -375,3 +375,9 @@ forked boot_ide512 for reading 512 sectors
 modded the LBA mode - test!
 todo: mod the CHS mode (mostly stack change!)
 todo: fixup nitros9 makefile to compile this module.
+
+
+* change src/Makefile to assemble boot_ide512.mod from os9 src to $(IMAGES)
+* test build
+* mv dw2dsk.cas and dw2dsk.wav fr images to build dir
+
