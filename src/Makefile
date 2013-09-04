@@ -17,10 +17,8 @@
 # ------------------------------------------------------------------------
 
 
-AS=lwasm -I . -9o 
-BFC=../bfc/bfc
-HDBDIR=~/C/hg
-VPATH=images
+AS = $(LWASM) -I . -I $(IMAGES) -9o 
+VPATH=$(IMAGES)
 
 
 # These are the HDBDOS overlay images
@@ -43,89 +41,81 @@ DIFS= hdbchs.dif     	\
       hdblrtech.dif
 
 
-ALL: boot.dsk Makefile dw2dsk.wav dw2dsk.cas
+ALL: cocoboot.dsk Makefile dw2dsk.wav dw2dsk.cas
 
-boot.dsk: boot.img bpb.img setup.fi decb.rom $(DIFS) hdbutil.fi os9.fi
-	tools/rofs/rofs -x "COCOBOOT BOOT DISK" -f boot.dsk -b boot.img \
-bpb.img				\
-setup.fi 			\
-images/decb.rom 		\
-images/hdbchs.dif     		\
-images/hdbdw3bc3.dif  		\
-images/hdbdw3cc3.dif		\
-images/hdbdw4cc3.dif		\
-images/hdbtc3.dif		\
-images/hdbd4n1.dif		\
-images/hdbdw3bck.dif		\
-images/hdbdw3jc2.dif		\
-images/hdbkenton.dif		\
-images/hdbdhdii.dif		\
-images/hdbdw3cc1.dif		\
-images/hdbdw3jc3.dif		\
-images/hdblba.dif		\
-images/hdbdw3arduino.dif	\
-images/hdbdw3cc2.dif		\
-images/hdbdw4cc2.dif		\
-images/hdblrtech.dif		\
-hdbutil.fi			\
-os9.fi				\
-images/boot_ide512.mod
-
-
-
-$(DIFS): 
-	cd images
-	make
-
-decb.rom:
-	cd images
-	make
+cocoboot.dsk: boot.img bpb.img setup.fi decb.rom $(DIFS) hdbutil.fi os9.fi
+	$(ROFS) -x "COCOBOOT BOOT DISK" -f $(BUILDDIR)/cocoboot.dsk -b $(BUILDDIR)/images/boot.img \
+$(BUILDDIR)/images/bpb.img			\
+$(BUILDDIR)/images/setup.fi 			\
+$(BUILDDIR)/images/decb.rom 			\
+$(BUILDDIR)/images/hdbchs.dif     		\
+$(BUILDDIR)/images/hdbdw3bc3.dif  		\
+$(BUILDDIR)/images/hdbdw3cc3.dif		\
+$(BUILDDIR)/images/hdbdw4cc3.dif		\
+$(BUILDDIR)/images/hdbtc3.dif			\
+$(BUILDDIR)/images/hdbd4n1.dif			\
+$(BUILDDIR)/images/hdbdw3bck.dif		\
+$(BUILDDIR)/images/hdbdw3jc2.dif		\
+$(BUILDDIR)/images/hdbkenton.dif		\
+$(BUILDDIR)/images/hdbdhdii.dif			\
+$(BUILDDIR)/images/hdbdw3cc1.dif		\
+$(BUILDDIR)/images/hdbdw3jc3.dif		\
+$(BUILDDIR)/images/hdblba.dif			\
+$(BUILDDIR)/images/hdbdw3arduino.dif		\
+$(BUILDDIR)/images/hdbdw3cc2.dif		\
+$(BUILDDIR)/images/hdbdw4cc2.dif		\
+$(BUILDDIR)/images/hdblrtech.dif		\
+$(BUILDDIR)/images/hdbutil.fi			\
+$(BUILDDIR)/images/os9.fi			\
+$(BUILDDIR)/images/boot_ide512.mod
 
 
 setup.fi: *.fs
-	$(BFC) -c -o setup.fi cocoboot.fs setup.fs
+	$(BFC) -c -o $(IMAGES)/setup.fi cocoboot.fs setup.fs
 
 hdbutil.fi: *.fs
-	$(BFC) -c -o hdbutil.fi cocoboot.fs hdbutil.fs
+	$(BFC) -c -o $(IMAGES)/hdbutil.fi cocoboot.fs hdbutil.fs
 
 os9.fi: *.fs
-	$(BFC) -c -o os9.fi cocoboot.fs os9.fs
+	$(BFC) -c -o $(IMAGES)/os9.fi cocoboot.fs os9.fs
 
 bpb.img: 
-	cat /dev/zero | dd bs=256 count=1 of=bpb.img	
+	cat /dev/zero | dd bs=256 count=1 of=$(IMAGES)/bpb.img	
 
 boot.img: base.img forth.slz
-	cat base.img forth.slz /dev/zero | dd bs=256 count=18 conv=sync of=boot.img
+	cat base.img forth.slz /dev/zero | dd bs=256 count=18 conv=sync of=$(IMAGES)/boot.img
 
 base.img: cocoboot.def slz.asm run.slz rel.asm
-	$(AS) base.img -r rel.asm -s -lCCB.ls
+	$(AS) $(IMAGES)/base.img -r rel.asm -s -l$(LISTINGS)/CCB.ls
 
 run.slz: run.img
-	tools/slz/slz P run.img run.slz
+	$(SLZ) P $(IMAGES)/run.img $(IMAGES)/run.slz
 
-run.img: start.a ../6809/legs16.a 
-	$(AS) run.img -D RAW -r start.a -s -lrun.ls
+run.img: start.asm ../include/legs16.asm 
+	$(AS) $(IMAGES)/run.img -D RAW -r start.asm -s -l$(LISTINGS)/run.ls
 
 forth.slz: forth.img
-	tools/slz/slz P forth.img forth.slz
+	$(SLZ) P $(IMAGES)/forth.img $(IMAGES)/forth.slz
 
 forth.img: *.fs 
-	../bfc/bfc -c -o forth.img cocoboot.fs
+	$(BFC) -c -o $(IMAGES)/forth.img cocoboot.fs
 
 dw2dsk.cas: dw2dsk.img
-	makewav -r -k -nDW2DSK -d0x2600 -e0x2602 -odw2dsk.cas dw2dsk.img
+	makewav -r -k -nDW2DSK -d0x2600 -e0x2602 -o$(IMAGES)/dw2dsk.cas $(IMAGES)/dw2dsk.img
 
 dw2dsk.wav: dw2dsk.img
-	makewav -r -nDW2DSK -d0x2600 -e0x2602 -odw2dsk.wav dw2dsk.img
+	makewav -r -nDW2DSK -d0x2600 -e0x2602 -o$(IMAGES)/dw2dsk.wav $(IMAGES)/dw2dsk.img
 
 dw2dsk.img: base.img dw2dsk.slz 
-	cat base.img dw2dsk.slz > dw2dsk.img
+	cat $(IMAGES)/base.img $(IMAGES)/dw2dsk.slz > $(IMAGES)/dw2dsk.img
 
 dw2dsk.slz: dw2dsk.fi
-	tools/slz/slz P dw2dsk.fi dw2dsk.slz
+	$(SLZ) P $(IMAGES)/dw2dsk.fi $(IMAGES)/dw2dsk.slz
 
 dw2dsk.fi: *.fs
-	../bfc/bfc -c -o dw2dsk.fi dw2dsk.fs
+	$(BFC) -c -o $(IMAGES)/dw2dsk.fi dw2dsk.fs
 
 clean:
-	rm -f CCB.BIN forth.img *~ run.img *.slz *.dsk *.img *.ls
+	cd $(IMAGES); rm -f base.img boot.img bpb.img dw2dsk.cas dw2dsk.fi dw2dsk.img dw2dsk.slz dw2dsk.wav forth.img forth.slz hdbutil.fi os9.fi run.img run.slz setup.fi
+	cd $(LISTINGS); rm -f *.ls
+	rm -f $(BUILDDIR)/cocoboot.dsk

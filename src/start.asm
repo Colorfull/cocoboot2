@@ -263,7 +263,7 @@ adc ; ( x x -- c x ) \ add with carry
 	jmp    next
 
 
-	include ../6809/legs16.a
+	include ../include/legs16.asm
 
 
 BBOUT       equ    $FF20
