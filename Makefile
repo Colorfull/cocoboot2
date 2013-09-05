@@ -16,6 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ------------------------------------------------------------------------
 
+export VERMAJ = 0
+export VERMIN = 1
+
+
 
 include include/cocoboot2.make
 

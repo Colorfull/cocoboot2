@@ -34,7 +34,9 @@ include dskcon.fs
 include rofs.fs
 
 : hello
-   slit str "COCOBOOT2" type cr ;
+   slit str "COCOBOOT2 VER " type 
+   version bemit 2e emit bemit cr begin again
+;
 
 : loop begin key emit again ;
 

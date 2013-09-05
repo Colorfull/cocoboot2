@@ -89,6 +89,10 @@ start
 	ldd	#0x50
 	jsr	rprim
 
+	ldx	#version	; register "version"
+	ldd	#0x51
+	jsr	rprim
+
 	jmp	goforth		; go run forth
 
 
@@ -262,6 +266,11 @@ adc ; ( x x -- c x ) \ add with carry
 	std    2,u
 	jmp    next
 
+version ; ( -- minor major ) \ retreive version
+	ldd	#VERMAJ
+	ldy	#VERMIN
+	pshu	d,y
+	jmp 	next
 
 	include ../include/legs16.asm
 

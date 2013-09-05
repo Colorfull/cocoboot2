@@ -83,7 +83,7 @@ bpb.img:
 	cat /dev/zero | dd bs=256 count=1 of=$(IMAGES)/bpb.img	
 
 boot.img: base.img forth.slz
-	cat base.img forth.slz /dev/zero | dd bs=256 count=18 conv=sync of=$(IMAGES)/boot.img
+	cat $(IMAGES)/base.img $(IMAGES)/forth.slz /dev/zero | dd bs=256 count=18 conv=sync of=$(IMAGES)/boot.img
 
 base.img: cocoboot.def slz.asm run.slz rel.asm
 	$(AS) $(IMAGES)/base.img -r rel.asm -s -l$(LISTINGS)/CCB.ls
@@ -92,7 +92,7 @@ run.slz: run.img
 	$(SLZ) P $(IMAGES)/run.img $(IMAGES)/run.slz
 
 run.img: start.asm ../include/legs16.asm 
-	$(AS) $(IMAGES)/run.img -D RAW -r start.asm -s -l$(LISTINGS)/run.ls
+	$(AS) $(IMAGES)/run.img -D RAW -D VERMAJ=$(VERMAJ) -D VERMIN=$(VERMIN) -r start.asm -s -l$(LISTINGS)/run.ls
 
 forth.slz: forth.img
 	$(SLZ) P $(IMAGES)/forth.img $(IMAGES)/forth.slz

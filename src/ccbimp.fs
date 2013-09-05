@@ -43,6 +43,7 @@ p: 4d modread ( d a -- ) \ read from boot module
 p: 4e modterm ( -- )     \ terminate boot module
 p: 4f modoff ( -- )	 \ get blocklock boot module constant
 p: 50 adc ( x x -- c x ) \ add cells with carry
+p: 51 version ( -- min maj ) \ retrieve version
 
 : mb ( -- o ) \ offset into memory area
     4500 ;
