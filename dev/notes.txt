@@ -298,30 +298,26 @@ TODO
 * add a IDE informational scan
 * add a flash ripper / burner for hdb or cocoboot
 * mod sIDE base address in setup.fs to list select rather than wentry
-* move LEGS for 6809 to tools dir
-* move BFC for LEGS to tools dir
 * test bastard disks on rofs ( when enough files...)
 * make rofs check for too big disks and not overright boot track
 * consider changing index slot size to 4 bytes (allows for 62 files )
 * consider changing RSDOS fat to show free clusters where not used by ROFS
 * figure out return value for os9 boot modules
-* factor out objective word ( menu.fs and os9.fs )
+* factor out objective words ( menu.fs and os9.fs )
 * change src/Makefile to assemble boot_ide512.mod from os9 src to $(IMAGES)
-* test build dsk images
-* mv dw2dsk.cas and dw2dsk.wav fr images to build dir (not build/images)
 * add to make: make binary releases
 * test versioning in target
 
 *************************
 BUGS
 *************************
-Make recurses foreverly if images aren't made first!
 basic's console routines are goofy after a hard reset in HDB?
 
 *************************
 LOG
 *************************
 
+*** Version 0.0
 * Made forth image base and size defined by external symbols
 * changed execution address to 3800 ( from 2600 )
 * mod's old ccb's rel and slz routine
@@ -363,7 +359,10 @@ LOG
 * added license header to all source
 * made rofs work with bastard RSDOS fs.
 * rearranged src directories.  Makefile don't work anymore
-
+* move LEGS for 6809 to tools dir
+* modded makefile to build bins in "build" dir
+* Added "version" primitive to core
+* dw2dsk util building in "build" now.
 
 ***********************************
 where at

@@ -44,7 +44,8 @@ DIFS= hdbchs.dif     	\
 ALL: cocoboot.dsk Makefile dw2dsk.wav dw2dsk.cas
 
 cocoboot.dsk: boot.img bpb.img setup.fi decb.rom $(DIFS) hdbutil.fi os9.fi
-	$(ROFS) -x "COCOBOOT BOOT DISK" -f $(BUILDDIR)/cocoboot.dsk -b $(BUILDDIR)/images/boot.img \
+	$(ROFS) -x "COCOBOOT BOOT DISK" -f -b $(BUILDDIR)/images/boot.img \
+$(BUILDDIR)/cocoboot.dsk			\
 $(BUILDDIR)/images/bpb.img			\
 $(BUILDDIR)/images/setup.fi 			\
 $(BUILDDIR)/images/decb.rom 			\

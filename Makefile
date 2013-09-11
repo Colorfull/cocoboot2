@@ -20,9 +20,18 @@ export VERMAJ = 0
 export VERMIN = 1
 
 
-
 include include/cocoboot2.make
 
+RELNAM = cocoboot2-$(VERMAJ).$(VERMIN)
+
+
+ALL: all
+
+release: all
+	$(MKDIR) $(BUILDDIR)/$(RELNAM)
+	cd $(BUILDDIR); cp cocoboot.dsk dw2dsk.cas dw2dsk.wav $(RELNAM)/
+	cd $(BUILDDIR); zip -r $(RELNAM).zip $(RELNAM)
+	cd $(BUILDDIR); rm -rf $(RELNAM)
 
 all:
 	$(MKDIR) $(BUILDDIR)
@@ -37,3 +46,5 @@ clean:
 	cd tools; $(MAKE) clean
 	cd images; $(MAKE) clean
 	cd src; $(MAKE) clean
+
+

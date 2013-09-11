@@ -35,7 +35,7 @@ include rofs.fs
 
 : hello
    slit str "COCOBOOT2 VER " type 
-   version bemit 2e emit bemit cr begin again
+   version bemit 2e emit bemit cr 
 ;
 
 : loop begin key emit again ;
