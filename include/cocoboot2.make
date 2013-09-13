@@ -36,6 +36,11 @@ BUILDDIR = $(CCBHOME)/build
 
 HDBDIR = /home/beretta/C/toolshed/hdbdos
 
+#
+# Set this variable to the Nitros 9 directory
+#
+
+NITROS9DIR = /home/beretta/C/legs/cocoboot/nitros9
 
 #
 # Set this variable to the command needed to run lwasm

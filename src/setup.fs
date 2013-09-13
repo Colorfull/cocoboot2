@@ -414,7 +414,15 @@ include menu.fs
     exam
     # 0
 
+
+: coco3? ( -- f ) \ if this a coco3?
+    ffa6 p@ 3e = ; 
+
+: width32 ( -- ) 
+    f652 exem ;
+
 : test 
+    coco3? if width32 then    
     \ fill out table
     bmeth_table 
     lit chain !+

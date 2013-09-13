@@ -242,6 +242,17 @@ kinit todos:
    how to find krn address to jump to it
 
 
+* compile a dw4 nitros system
+    - do a "export NITROS9DIR=...."
+    - at top dir: "make"
+    - in level2/coco3: "make nos96809l2coco3_dw.dsk"
+* find boot mods on nitros system
+    - looks like boot mods are in "/nitros9/6809l2/modules"
+    - filenames are different than modules names
+* how to compile hacked os9 boot drivers
+    - try to compile on own.
+        copy to src/os9
+* compile a dw4 boot driver
 
 
 ****************************
@@ -307,6 +318,9 @@ TODO
 * change src/Makefile to assemble boot_ide512.mod from os9 src to $(IMAGES)
 * add to make: make binary releases
 * test versioning in target
+* Kip: force 32 column mode at boot (in case of 40 or 80)
+* Kip: FD doesn't spin down (ever)
+
 
 *************************
 BUGS

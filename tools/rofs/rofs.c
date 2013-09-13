@@ -260,7 +260,7 @@ void dobastard(){
 int main( int argc, char **argv ){
   int r;
   while(1){
-    r=getopt( argc, argv, "x:fub:" );
+    r=getopt( argc, argv, "+x:fub:" );
     if( r=='f' ){  fopt=1; }
     if( r=='b' ){  bfile=optarg; }
     if( r=='u' ){  printusage(); exit(0); }

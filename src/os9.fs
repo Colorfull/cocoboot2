@@ -255,6 +255,10 @@ c	4	inode number
 
    \ load drive module and init it
    mod p> 16 load drop     
+
+  \ prompt user
+  slit str "PRESS ANY KEY" type key drop
+
    init                    
 
    \ try to mount the RBF 

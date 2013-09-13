@@ -40,10 +40,11 @@ DIFS= hdbchs.dif     	\
       hdbdw4cc2.dif	\
       hdblrtech.dif
 
+MODS = boot_dw.mod
 
 ALL: cocoboot.dsk Makefile dw2dsk.wav dw2dsk.cas
 
-cocoboot.dsk: boot.img bpb.img setup.fi decb.rom $(DIFS) hdbutil.fi os9.fi
+cocoboot.dsk: boot.img bpb.img setup.fi decb.rom $(DIFS) $(MODS) hdbutil.fi os9.fi 
 	$(ROFS) -x "COCOBOOT BOOT DISK" -f -b $(BUILDDIR)/images/boot.img \
 $(BUILDDIR)/cocoboot.dsk			\
 $(BUILDDIR)/images/bpb.img			\
@@ -68,7 +69,7 @@ $(BUILDDIR)/images/hdbdw4cc2.dif		\
 $(BUILDDIR)/images/hdblrtech.dif		\
 $(BUILDDIR)/images/hdbutil.fi			\
 $(BUILDDIR)/images/os9.fi			\
-$(BUILDDIR)/images/boot_ide512.mod
+$(BUILDDIR)/images/boot_dw.mod
 
 
 setup.fi: *.fs
@@ -116,7 +117,13 @@ dw2dsk.slz: dw2dsk.fi
 dw2dsk.fi: *.fs
 	$(BFC) -c -o $(IMAGES)/dw2dsk.fi dw2dsk.fs
 
+boot_dw.mod: 
+	cd os9; $(MAKE)
+
+
 clean:
 	cd $(IMAGES); rm -f base.img boot.img bpb.img dw2dsk.cas dw2dsk.fi dw2dsk.img dw2dsk.slz dw2dsk.wav forth.img forth.slz hdbutil.fi os9.fi run.img run.slz setup.fi
 	cd $(LISTINGS); rm -f *.ls
 	rm -f $(BUILDDIR)/cocoboot.dsk
+	cd os9; $(MAKE) clean
+
