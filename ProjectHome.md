@@ -1,0 +1,1 @@
+CoCoBoot is a stand-alone program written for the circa 1980's Tandy Color Computer 1,2 and 3.  CoCoBoot is designed to be a flexible booting/BASIC replacement.  It'll do more than boot your computer... CoCoBoot is a full Forth Programing Enviroment, with a hardy core of ITS OWN DEVICE DRIVERS.
